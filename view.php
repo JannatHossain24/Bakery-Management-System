@@ -1,25 +1,151 @@
+<div class="container">
+<div class="panel-body inf-content">
+   
 <?php  
-     if (!isset($_SESSION['USERID'])){
+     if (!isset($_SESSION['userid'])){
       redirect(web_root."index.php");
      }
 
-    $PROID = $_GET['id'];
-    $product = New Product();
-    $singleproduct = $product->single_product($PROID);
 
-   
-     $category = New Category();
-    $singlecategory = $category->single_category($singleproduct->CATEGID);
-  ?>
-<div class="container">
-<div class="panel-body inf-content">
-    <div class="row">
+	  @$customerid = $_GET['customerid'];	  
+	  @$productid = $_GET['productid'];
+	  if (isset($customerid)){
+
+	  $customer = New Customer();
+	  $singlecustomer = $customer->single_customer($customerid);
+	?>
+<?php  
+      $user_id = $_GET['customerid'];
+      $user = New User();
+      $singleuser = $user->single_user($user_id);
+
+    ?>
+
+                  
+	 <div class="row">
         <div class="col-md-4">
         <a data-target="#myModal" data-toggle="modal" href="" title=
-            "Click here to Change Image.">
-            <img alt="" style="width:600px; height:400px;>" title="" class="img-circle img-thumbnail isTooltip" src="<?php echo $singleproduct->IMAGES; ?>" data-original-title="Usuario"> 
-          
+						"Click here to Change Image.">
+            <img alt="" style="width:600px; height:400px;>" title="" class="img-square img-thumbnail isTooltip" src="<?php echo web_root.'customer/'. $singlecustomer->IMAGE; ?>" data-original-title="Usuario">          
           </a>  
+        </div>
+        <div class="col-md-6">
+            <h1><strong>Customer Details</strong></h1><br>
+            <div class="table-responsive">
+            <table class="table table-condensed table-responsive table-user-information">
+                <tbody>
+               
+                    <tr>    
+                        <td>
+                            <strong>
+                                <!-- <span class="glyphicon glyphicon-user  text-primary"></span>     -->
+                                Id Number                                                
+                            </strong>
+                        </td>
+                        <td class="text-primary">
+                            <?php echo ': '.$singlecustomer->CUSTOMERID; ?>     
+                        </td>
+                    </tr>
+                    <tr>        
+                        <td>
+                            <strong>
+                                <!-- <span class="glyphicon glyphicon-cloud text-primary"></span>   -->
+                                Name                                                
+                            </strong>
+                        </td>
+                        <td class="text-primary">
+                            <?php echo ': '.$singlecustomer->FIRSTNAME . ' ' .$singlecustomer->LASTNAME; ?>  
+                        </td>
+                    </tr>
+
+                  <!--   <tr>        
+                        <td>
+                            <strong> -->
+                                <!-- <span class="glyphicon glyphicon-bookmark text-primary"></span>  -->
+                            <!--     City Address                                                
+                            </strong>
+                        </td>
+                        <td class="text-primary">
+                            <?php echo ': '.$singlecustomer->CITYADDRESS; ?>
+                        </td>
+                    </tr>
+ -->
+
+                    <tr>        
+                        <td>
+                            <strong>
+                                <!-- <span class="glyphicon glyphicon-eye-open text-primary"></span>  -->
+                                Address                                                
+                            </strong>
+                        </td>
+                        <td class="text-primary">
+                            <?php echo ': '.$singlecustomer->ADDRESS; ?>
+                        </td>
+                    </tr>
+
+              <!--         <tr>        
+                        <td>
+                            <strong>
+                                <!-- <span class="glyphicon glyphicon-eye-open text-primary"></span>  -->
+                       <!--          Email Address                                                
+                            </strong>
+                        </td>
+                        <td class="text-primary">
+                            <?php echo ': '.$singleuser->UEMAIL; ?>
+                        </td>
+                    </tr> -->  
+                     <tr>        
+                        <td>
+                            <strong>
+                                <!-- <span class="glyphicon glyphicon-eye-open text-primary"></span>  -->
+                                Contact Number                                                
+                            </strong>
+                        </td>
+                        <td class="text-primary">
+                            <?php echo ': '.$singlecustomer->CONTACTNUMBER; ?>
+                        </td>
+                    </tr>
+
+                    <tr>        
+                        <td>
+                            <strong>
+                                <!-- <span class="glyphicon glyphicon-eye-open text-primary"></span>  -->
+                                Zipcode                                                
+                            </strong>
+                        </td>
+                        <td class="text-primary">
+                            <?php echo ': '.$singlecustomer->ZIPCODE; ?>
+                        </td>
+                    </tr>
+                    
+ 
+				
+ 
+<?php  
+}elseif(isset($productid)){
+
+	  $product = New Product();
+	  $singleproduct = $product->single_product($productid);
+
+	  // $origin = New Origin();
+	  // $singleorigin = $origin->single_origin($singleproduct->ORIGINID);
+
+	   $category = New Category();
+	  $singlecategory = $category->single_category($singleproduct->CATEGORYID);
+	?>
+	     <div class="row">
+        <div class="col-md-4">
+        <a data-target="#myModal" data-toggle="modal" href="" title=
+						"Click here to Change Image.">
+            <img alt="" style="width:600px; height:400px;>" title="" class="img-circle img-thumbnail isTooltip" src="../product/<?php echo $singleproduct->IMAGE; ?>" data-original-title="Usuario"> 
+          
+          </a> <!--  <ul title="Ratings" class="list-inline ratings text-center">
+                <li><a href="#"><span class="glyphicon glyphicon-star"></span></a></li>
+                <li><a href="#"><span class="glyphicon glyphicon-star"></span></a></li>
+                <li><a href="#"><span class="glyphicon glyphicon-star"></span></a></li>
+                <li><a href="#"><span class="glyphicon glyphicon-star"></span></a></li>
+                <li><a href="#"><span class="glyphicon glyphicon-star"></span></a></li>
+            </ul> -->
         </div>
         <div class="col-md-6">
             <h1><strong>Product Details</strong></h1><br>
@@ -30,11 +156,12 @@
                     <tr>    
                         <td>
                             <strong>
-                                   Product                                                
+                                <!-- <span class="glyphicon glyphicon-user  text-primary"></span>     -->
+                                Name                                                
                             </strong>
                         </td>
                         <td class="text-primary">
-                            <?php echo ': '.$singleproduct->PRONAME.'  '.$singleproduct->PROBRAND.'  '.$singleproduct->PRODESC; ?>     
+                            <?php echo ': '.$singleproduct->PRODUCTNAME; ?>     
                         </td>
                     </tr>
                     <tr>        
@@ -45,7 +172,7 @@
                             </strong>
                         </td>
                         <td class="text-primary">
-                            <?php echo ': '.$singlecategory->CATEGORIES; ?>  
+                            <?php echo ': '.$singlecategory->CATEGORY; ?>  
                         </td>
                     </tr>
 
@@ -57,7 +184,7 @@
                             </strong>
                         </td>
                         <td class="text-primary">
-                            <?php echo ': &#8369 '.$singleproduct->PROPRICE; ?> 
+                            <?php echo ': '.$singleproduct->PRICE; ?> &#8369 
                         </td>
                     </tr>
 
@@ -70,10 +197,20 @@
                             </strong>
                         </td>
                         <td class="text-primary">
-                            <?php echo ': '.$singleproduct->PROQTY; ?>
+                            <?php echo ': '.$singleproduct->QTY; ?>
                         </td>
                     </tr>
-           
+ 
+<?php } ?>
+						<tr>        
+                        <td>
+                            
+							<a href="index.php" class="btn btn_fixnmix" name="back" type="submit">Back</a>
+                        </td>
+                        <td>
+                            
+                        </td>
+                    </tr>
                                  
                 </tbody>
             </table>
@@ -81,49 +218,4 @@
         </div>
     </div>
 </div>
-</div>
-            
-
-     <!-- Modal -->
-          <div class="modal fade" id="myModal" tabindex="-1">
-            <div class="modal-dialog">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <button class="close" data-dismiss="modal" type=
-                  "button">×</button>
-
-                  <h4 class="modal-title" id="myModalLabel">Choose Image.</h4>
-                </div>
-
-                <form action="controller.php?action=photos&id=<?php echo $PROID; ?>" enctype="multipart/form-data" method=
-                "post">
-                  <div class="modal-body">
-                    <div class="form-group">
-                      <div class="rows">
-                        <div class="col-md-12">
-                          <div class="rows">
-                            <div class="col-md-8">
-                              <input name="MAX_FILE_SIZE" type=
-                              "hidden" value="1000000"> <input id=
-                              "photo" name="photo" type=
-                              "file">
-                            </div>
-
-                            <div class="col-md-4"></div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="modal-footer">
-                    <button class="btn btn-default" data-dismiss="modal" type=
-                    "button">Close</button> <button class="btn btn-primary"
-                    name="savephoto" type="submit">Upload Photo</button>
-                  </div>
-                </form>
-              </div><!-- /.modal-content -->
-            </div><!-- /.modal-dialog -->
-          </div><!-- /.modal -->
-
- 
+</div>			

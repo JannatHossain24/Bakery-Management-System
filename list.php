@@ -1,128 +1,96 @@
-<?php
-		check_message(); 
-		?> 
-		 
-		<div class="row">
+
+<div class="container">
+	<?php
+		 if (!isset($_SESSION['USERID'])){
+      redirect(web_root."admin/index.php");
+     }
+
+		check_message();
+			
+		?>
+
+ 
+ 	<div class="row">
        	 <div class="col-lg-12">
-            <h1 class="page-header">List of Products  <a href="index.php?view=add" class="btn btn-primary btn-xs  ">  <i class="fa fa-plus-circle fw-fa"></i> New</a>  </h1>
+            <h1 class="page-header">List of Orders</h1>
        		</div>
         	<!-- /.col-lg-12 -->
    		 </div>
-			    <form action="controller.php?action=delete" Method="POST">  	
-			    <div class="table-responsive">				
-				<table id="dash-table"  class="table table-striped table-bordered table-hover "  style="font-size:12px" cellspacing="0" >
-					
-				  <thead>
-				  	<tr> 
-				  		<th width="1%">#</th>
-				  		<th width="50">Image</th>
-				  		<!-- <th>Model</th>  -->
-				  		<!-- <th align="left"><input type="checkbox" name="chkall" id="chkall" onclick="return checkall('selector[]');"> Product</th>  -->
-				  		<th>Product</th> 
-				  		<th>Description</th>
-				  		<!-- <th>Category</th> -->
-				  		<th>Price</th>
-				  		<th>Discount%</th>  
-				  		<th>Discounted Price</th>  
-
-				  		<th>Quantity</th>  
-
-				  		<!-- <th>Action</th>  -->
-				  		 
+			 
+			    <form action="controller.php?action=delete" Method="POST">  					
+				 <div class="table-responsive">	
+                  <table id="example" class="table  table-striped table-bordered table-hover"  style="font-size:12px" cellspacing="0">
+			 		<thead>
+			 		<tr >
+				  		<th>#</th>
+				  		<th>Order#</th>
+				  		<th>Customer</th>
+				  		<th>DateOrdered</th>	 
+				  		<th >Price</th>
+				  		<th >PaymentMethod</th>	
+				  		<th>Status</th>
+				  		<th width="100px">Action</th>
+				 
 				  	</tr>	
-				  </thead> 	
-
-			  <tbody>
-				  	<?php 
-				  		$query = "SELECT * FROM `tblpromopro` pr , `tblproduct` p , `tblcategory` c
-           					 WHERE pr.`PROID`=p.`PROID` AND  p.`CATEGID` = c.`CATEGID` ";
+			   		</thead>
+			   		<tbody>
+					<?php 
+				  		$query = "SELECT * FROM `tblsummary` s ,`tblcustomer` c 
+				  				WHERE   s.`CUSTOMERID`=c.`CUSTOMERID` ORDER BY   `ORDEREDNUM` desc ";
 				  		$mydb->setQuery($query);
 				  		$cur = $mydb->loadResultList();
 
-						foreach ($cur as $result) { 
-				  		echo '<tr>';
-				  		echo '<td width="1%" align="center"><input type="checkbox" name="selector[]" id="selector[]" value="'.$result->PROID. '"/></td>';
-				    echo '<td style="padding:0px;">
-							<a class="PROID" href="" data-target="#productmodal"  data-toggle="modal"  data-id="'.$result->PROID.'"> 
-							<img  title="'.$result->CATEGORIES.'" style="width:100px;height:50px;padding:0;"  src="'. web_root.'admin/products/'.$result->IMAGES . '">
-							</a></td>'; 	
-				  		// echo '<td><a title="edit" href="'.web_root.'admin/products/index.php?view=edit&id='.$result->PROID.'"><i class="fa fa-pencil "></i> ' . $result->PROMODEL.'</a></td>';
-				  		echo '<td><a title="edit" href="'.web_root.'admin/products/index.php?view=edit&id='.$result->PROID.'"><i class="fa fa-pencil "></i>'.$result->CATEGORIES.'</a></td>';
-				  		
-				  		echo '<td>'. $result->PRODESC.'</td>'; 
-				  		echo '<td> &#8369 '.  number_format($result->PROPRICE,2).'</td>';
-				  		echo '<td> &#8369 '.  number_format($result->PRODISCOUNT,0).'</td>';
-				  		echo '<td> &#8369 '.  number_format($result->PRODISPRICE,2).'</td>';
+						foreach ($cur as $result) {
+						?>
 
-				  		echo '<td width="4%">'. $result->PROQTY.'</td>';
-				  		// echo '<td><a href="controller.php?action=delete&id='.$result->PROD.'" class="btn btn-danger">delete</a></td>';
-
-				  		
-				  		// if ($result->PROSTATS=='Available'){
-				  		// 	$stats = 'Available';
-				  		// }else{
-				  		// 	$stats = 'NotAvailable';
-				  		// }
-				  	// 	echo
-				  	// 	 '<td align="left">
-							// <a href="'.web_root.'admin/products/controller.php?action=edit&id='.$result->PROID.'&stats='.$stats.'" class="btn btn-primary btn-xs">'.$stats.'</a>
-							// <a href="settings.php?id='.$result->PROID.'" data-toggle="lightbox"  class="btn btn-primary btn-xs">Set Discount</a>
-				  	// 	 </td>';
+					<?php
+						echo '<tr>';
+				  		echo '<td width="3%" align="center"></td>';
+				  		echo '<td><a href="#" title="View list Of ordered" data-target="#myModal" data-toggle="modal" class="orders" data-id="'.$result->ORDEREDNUM.'">'.$result->ORDEREDNUM .'</a> </td>';  
+				  		echo '<td><a href="index.php?view=customerdetails&customerid='.$result->CUSTOMERID.'" title="View customer information">'. $result->FNAME.' '. $result->LNAME.'</a></td>';
+				  		echo '<td>'. date_format(date_create($result->ORDEREDDATE),"M/d/Y h:i:s").'</td>';
+				  		echo '<td> &#8369 '.number_format($result->PAYMENT ,2).'</td>';
+				  		echo '<td >'.$result->PAYMENTMETHOD .'</td>';
+				  		// echo '<td></td>';
+				  		echo '<td >'. $result->ORDEREDSTATS.'</td>';
+				  		if($result->ORDEREDSTATS=='Pending'){
+				  				echo '<td><a href="controller.php?action=edit&id='.$result->ORDEREDNUM.'&customerid='.$result->CUSTOMERID.'&actions=cancel" class="btn btn-danger btn-xs">Cancel</a>
+				  				<a href="controller.php?action=edit&id='.$result->ORDEREDNUM.'&customerid='.$result->CUSTOMERID.'&actions=confirm"  class="btn btn-primary btn-xs">Confirm</a></td>';
+			  	 		}elseif($result->ORDEREDSTATS=='Confirmed'){
+				  	 			echo '<td><a href="#"  class="btn btn-success btn-xs" disabled>Confirmed</a></td>';
+				  	 		 
+			  	 		}else{
+			  	 			 echo '<td> <a  href="#"  class="btn btn-danger btn-xs" disabled>Cancelled</a></td>';
+				
+			
+			  	 		} 
+				  		// if($result->ORDEREDSTATS=='Pending'){
+				  		// 		echo '<td><a href="controller.php?action=edit&id='.$result->ORDEREDNUM.'&actions=cancel" class="btn btn-danger btn-xs">Cancel</a>
+				  		// 		<a href="controller.php?action=edit&id='.$result->ORDEREDNUM.'&actions=confirm"  class="btn btn-primary btn-xs">Confirm</a></td>';
+			  	 	// 	}elseif($result->ORDEREDSTATS=='Confirmed'){
+				  	 // 			echo '<td><a href="controller.php?action=edit&id='.$result->ORDEREDNUM.'&actions=cancel" class="btn btn-danger btn-xs">Cancel</a>
+				  		// 		<a href="controller.php?action=edit&id='.$result->ORDEREDNUM.'&actions=deliver"  class="btn btn-success btn-xs">Deliver</a></td>';
+				  	 		
+			  	 	// 	}elseif($result->ORDEREDSTATS=='Delivered'){
+			  	 	// 		  echo '<td> <a  href="controller.php?action=edit&id='.$result->ORDEREDNUM.'&actions=confirm"  class="btn btn-success btn-xs" disabled>Delivered</a></td>';
+				
+			  	 	// 	}else{
+			  	 	// 		 echo '<td> <a  href="#"  class="btn btn-danger btn-xs" disabled>Cancelled</a></td>';
+				
+			
+			  	 	// 	} 
+				  		echo '</tr>';
+ 
 				  	} 
-				  	?>
-				  </tbody>
-					
+				  	?> 
+				 </tbody>
 				 	
 				</table>
-
 				<div class="btn-group">
-				  <!-- <a href="index.php?view=add" class="btn btn-default">New</a> -->
-				  <button type="submit" class="btn btn-default" name="delete"><i class="fa fa-trash fw-fa"></i> Delete Selected</button>
 				</div>
 				</div>
-				</form>
- 
- <div class="modal fade" id="productmodal" tabindex="-1">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <button class="close" data-dismiss="modal" type=
-                                    "button">ï¿½</button>
+				</form> 
 
-                                    <h4 class="modal-title" id="myModalLabel">Image.</h4>
-                                </div>
-
-                                <form action="<?php echo web_root; ?>admin/products/controller.php?action=photos" enctype="multipart/form-data" method=
-                                "post">
-                                    <div class="modal-body">
-                                        <div class="form-group">
-                                            <div class="rows">
-                                                <div class="col-md-12">
-                                                    <div class="rows">
-                                                        <div class="col-md-8">
-
-                                                            <input class="proid" type="hidden" name="proid" id="proid" value="">
-                                                              <input name="MAX_FILE_SIZE" type=
-                                                            "hidden" value="1000000"> <input id=
-                                                            "photo" name="photo" type=
-                                                            "file">
-                                                        </div>
-
-                                                        <div class="col-md-4"></div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="modal-footer">
-                                        <button class="btn btn-default" data-dismiss="modal" type=
-                                        "button">Close</button> <button class="btn btn-primary"
-                                        name="savephoto" type="submit">Upload Photo</button>
-                                    </div>
-                                </form>
-                            </div><!-- /.modal-content -->
-                        </div><!-- /.modal-dialog -->
-                    </div><!-- /.modal -->
-
-                
+  <div class="modal fade" id="myModal" tabindex="-1">
+						
+	</div><!-- /.modal -->
