@@ -28,19 +28,16 @@ switch ($action) {
 		if(isset($_POST['save'])){
 
 
-		if ( $_POST['AUTOSTART'] == "" ) {
+		if ( $_POST['CATEGORY'] == "" ) {
 			$messageStats = false;
 			message("All field is required!","error");
 			redirect('index.php?view=add');
 		}else{	
-			$autonumber = New Autonumber();
-			$autonumber->AUTOSTART	= $_POST['AUTOSTART'];
-			$autonumber->AUTOINC	= $_POST['AUTOINC'];
-			$autonumber->AUTOEND	= $_POST['AUTOEND'];
-			$autonumber->AUTOKEY	= $_POST['AUTOKEY'];
-			$autonumber->create();
+			$category = New Category();
+			$category->CATEGORIES	= $_POST['CATEGORY'];
+			$category->create();
 
-			message("New Autonumber created successfully!", "success");
+			message("New [". $_POST['CATEGORY'] ."] created successfully!", "success");
 			redirect("index.php");
 			
 		}
@@ -51,14 +48,11 @@ switch ($action) {
 	function doEdit(){
 		if(isset($_POST['save'])){
 
-			$autonumber = New Autonumber();
-			$autonumber->AUTOSTART	= $_POST['AUTOSTART'];
-			$autonumber->AUTOINC	= $_POST['AUTOINC'];
-			$autonumber->AUTOEND	= $_POST['AUTOEND'];
-			// $autonumber->AUTOKEY	= $_POST['AUTOKEY'];
-			$autonumber->update($_POST['AUTOKEY']);
+			$category = New Category();
+			$category->CATEGORIES	= $_POST['CATEGORY'];
+			$category->update($_POST['CATEGID']);
 
-			message(" Autonumber has been updated!", "success");
+			message("[". $_POST['CATEGORY'] ."] has been updated!", "success");
 			redirect("index.php");
 		}
 
@@ -71,12 +65,12 @@ switch ($action) {
 		// redirect('index.php');
 		// }else{
 
-			$id = $_GET['AUTOKEY'];
+			$id = $_GET['id'];
 
-			$autonumber = New Autonumber();
-			$autonumber->delete($id);
+			$category = New Category();
+			$category->delete($id);
 
-			message("autonumber already Deleted!","info");
+			message("Category already Deleted!","info");
 			redirect('index.php');
 
 		// $id = $_POST['selector'];
@@ -84,10 +78,10 @@ switch ($action) {
 
 		// for($i=0;$i<$key;$i++){
 
-		// 	$autonumber = New autonumber();
-		// 	$autonumber->delete($id[$i]);
+		// 	$category = New Category();
+		// 	$category->delete($id[$i]);
 
-		// 	message("autonumber already Deleted!","info");
+		// 	message("Category already Deleted!","info");
 		// 	redirect('index.php');
 		// }
 		// }

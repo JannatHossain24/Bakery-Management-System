@@ -7,61 +7,22 @@
 ?>
  <form class="form-horizontal span6" action="controller.php?action=add" method="POST">
 
-           <div class="row">
+    <div class="row">
          <div class="col-lg-12">
-            <h1 class="page-header">Add New Autonumber</h1>
-          </div>
-          <!-- /.col-lg-12 -->
+            <h1 class="page-header">Add New Category</h1>
+          </div> 
        </div> 
                   <div class="form-group">
                     <div class="col-md-8">
                       <label class="col-md-4 control-label" for=
-                      "AUTOSTART">Start:</label>
+                      "CATEGORY">Category:</label>
 
                       <div class="col-md-8">
-                         <input class="form-control input-sm" id="AUTOSTART" name="AUTOSTART" placeholder=
-                            "Start" type="text" value="">
+                         <input class="form-control input-sm" id="CATEGORY" name="CATEGORY" placeholder=
+                            "Category" type="text" value="">
                       </div>
                     </div>
                   </div>
-
-                     <div class="form-group">
-                    <div class="col-md-8">
-                      <label class="col-md-4 control-label" for=
-                      "AUTOINC">INC:</label>
-
-                      <div class="col-md-8">
-                         <input class="form-control input-sm" id="AUTOINC" name="AUTOINC" placeholder=
-                            "INC" type="text" value="">
-                      </div>
-                    </div>
-                  </div>
-
-                   <div class="form-group">
-                    <div class="col-md-8">
-                      <label class="col-md-4 control-label" for=
-                      "AUTOEND">End:</label>
-
-                      <div class="col-md-8">
-                         <input class="form-control input-sm" id="AUTOEND" name="AUTOEND" placeholder=
-                            "End" type="text" value="">
-                      </div>
-                    </div>
-                  </div>
-
-                     <div class="form-group">
-                    <div class="col-md-8">
-                      <label class="col-md-4 control-label" for=
-                      "AUTOKEY">Key:</label>
-
-                      <div class="col-md-8">
-                         <input class="form-control input-sm" id="AUTOKEY" name="AUTOKEY" placeholder=
-                            "Key" type="text" value="">
-                      </div>
-                    </div>
-                  </div>
-
-
 
 
             
