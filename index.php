@@ -7,25 +7,25 @@ require_once("../../include/initialize.php");
 
 $view = (isset($_GET['view']) && $_GET['view'] != '') ? $_GET['view'] : '';
 $header=$view;
-$title="Category";
+$title="Settings";
 switch ($view) {
 	case 'list' :
 		$content    = 'list.php';		
 		break;
 
 	case 'add' :
-		$content    = 'add.php';		
+		$content    = 'setDeliveryFee.php';		
 		break;
 
 	case 'edit' :
-		$content    = 'edit.php';		
+		$content    = 'setDeliveryFee.php';		
 		break;
     case 'view' :
 		$content    = 'view.php';		
 		break;
 
 	default :
-		$content    = 'list.php';		
+		$content    = 'setting.php';		
 }
 require_once ("../theme/templates.php");
 ?>
