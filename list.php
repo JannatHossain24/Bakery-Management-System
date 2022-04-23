@@ -1,246 +1,128 @@
-<?php 
-	 if (!isset($_SESSION['U_ROLE'])=='Administrator'){
-      redirect(web_root."admin/index.php");
-     } 
-?>
-
-<!-- <div class="row">
-<form  action="index.php" method="post">  
-	<div class="col-lg-3 col-lg-offset-3">
-	 <div class="panel panel-default">
-	 <div class="panel-heading" >Search</div>
-	 <div class="col-md-12"  ><br/>
- 		<div class="row" style="line-height:4px;">
-			<div class="col-md-12">
-		          <label>Product::</label>
-			      <div class="form-group">
-		                <input type="text" class="form-control input-sm" placeholder="Search for...."> 
-		            </div>
-				</div>
-				<div class="col-md-12">
-		          <label>Payment Method::</label>
-			      <div class="form-group">  
-		                <select class="form-control  input-sm">
-		                    <option>Cash on Pick Up</option>
-		                    <option>Cash on Delivery</option>
-		                    <option>All</option> 
-		                </select>
-		            </div> 
-				</div>
-				<div class="col-md-6">
-					<div class="form-group input-group"> 
-		                <label>From::</label> 
-		                <input type="text"  name="date_pickerfrom" id="date_pickerfrom"  value="<?php echo isset($_POST['date_pickerfrom']) ? $_POST['date_pickerfrom'] :date_create('m/d/Y');?>" readonly="true" class=" input-sm datetimepicker  form-control">
-		                <span class="input-group-btn">
-		                    <i class="fa  fa-calendar" ></i> 
-		                </span>
-		            </div>
-				</div>
-					<div class="col-md-6">
-					<div class="form-group input-group"> 
-		                <label>To::</label> 
-		                <input type="text"  name="date_pickerto" id="date_pickerto" value="<?php echo isset($_POST['date_pickerto']) ? $_POST['date_pickerto'] : date_create('m/d/Y');?>"  readonly="true" class="datetimepicker   form-control  input-sm">
-		                <span class="input-group-btn">
-		                    <i class="fa  fa-calendar" ></i> 
-		                </span>
-		            </div>
-				</div>
-				<div class="col-md-12 pull-right">
-			      <div class="form-group input-group"> 
-		                <span class="input-group-btn">
-		                    <button class="btn btn-primary" name="submit" type="submit" >Search <i class="fa fa-search"></i>
-		                    </button>
-		                </span>
-		            </div>
-				</div>
-			  </div>
-			</div>
-		</div>
-	</div>
-   
-	</form>
-</div>  -->
-
-<div class="row" style="margin:0;text-align:center;">
-<form  action="index.php" method="post">  
-	 <div class="col-lg-6"></div>
-   <div class="col-lg-4"> 
-	 <div class="col-md-12"  > 
- 	    <div class="row">
-		  <div class="col-md-6">
-				<div class="form-group input-group"> 
-	                <label>From::</label> 
-	                <input type="text" data-date="" data-date-format="yyyy-mm-dd" data-link-field="any" 
-                           data-link-format="yyyy-mm-dd"
-                           name="date_pickerfrom" id="date_pickerfrom"  
-                           value="<?php echo isset($_POST['date_pickerfrom']) ? $_POST['date_pickerfrom'] :'';?>"
-                            readonly="true" class="date_pickerfrom input-sm form-control">
-	                <span class="input-group-btn">
-	                    <i class="fa  fa-calendar" ></i> 
-	                </span>
-	            </div>
-				</div>
-					<div class="col-md-6">
-					<div class="form-group input-group"> 
-		                <label>To::</label> 
-		                <input type="text" data-date="" data-date-format="yyyy-mm-dd" data-link-field="any" 
-                           data-link-format="yyyy-mm-dd"
-                           name="date_pickerto" id="date_pickerto" 
-                           value="<?php echo isset($_POST['date_pickerto']) ? $_POST['date_pickerto'] : '';?>" 
-                            readonly="true" class="date_pickerto form-control  input-sm">
-		                <span class="input-group-btn">
-		                    <i class="fa  fa-calendar" ></i> 
-		                </span>
-
-		            </div>
-				</div>
-	    </div> 
-	 </div>
-   </div>
-   <div class="col-lg-2">  
- 	    <div class="row">
-		  <div class="col-md-12">
-			 <div class="form-group input-group" style="margin-top:25px;">  
-                <button class="btn btn-primary btn-sm" name="submit" type="submit" >Search <i class="fa fa-search"></i>
-                </button> 
-            </div>
-		   </div>  
-	    </div> 
-	 </div>
-   </div>
-</form>
-</div>
-
-
-
-
-<div class="row">
-<span id="printout">
-	<div class="col-md-12" >
-	<div class="page-header" style="text-align:center;" ><h1>List of Ordered Products</h1>
-		<div>Inclusive Dates: From : <?php echo isset($_POST['date_pickerfrom']) ? $_POST['date_pickerfrom'] :'';?> - To : <?php echo isset($_POST['date_pickerto']) ? $_POST['date_pickerto'] : '';?> </div>
-	</div>
-		 
-<form class="" method="POST" action="<?php echo $_SERVER['PHP_SELF'] ?>">
-		<table class="table table-bordered table-hover" align="center" cellspacing="10px">
-		<thead>
-			<tr bgcolor="skyblue" style="font-weight: bold;"> 
-				<td >Date Ordered</td>  
-				<!-- <td >Customer</td> -->
-				<td >Product</td>
-				<td >Original Price</td>
-				<td >Price</td>
-				<td >Quantity</td> 
-				<td >Sub-total</td>
-			</tr>
-
-		</thead>
-		<tbody>		
 <?php
-	$totAmount = 0;
-	$Capital = 0;
-	$totQty =0;
-	$markupPrice = 0;
-if(isset($_POST['submit'])){
- // 	$_SESSION['date_pickerfrom']=$_POST['date_pickerfrom'];
-	// $_SESSION['date_pickerto']=$_POST['date_pickerto'];	
+		check_message(); 
+		?> 
+		 
+		<div class="row">
+       	 <div class="col-lg-12">
+            <h1 class="page-header">List of Products  <a href="index.php?view=add" class="btn btn-primary btn-xs  ">  <i class="fa fa-plus-circle fw-fa"></i> New</a>  </h1>
+       		</div>
+        	<!-- /.col-lg-12 -->
+   		 </div>
+			    <form action="controller.php?action=delete" Method="POST">  	
+			    <div class="table-responsive">				
+				<table id="dash-table"  class="table table-striped table-bordered table-hover "  style="font-size:12px" cellspacing="0" >
+					
+				  <thead>
+				  	<tr> 
+				  		<th width="1%">#</th>
+				  		<th width="50">Image</th>
+				  		<!-- <th>Model</th>  -->
+				  		<!-- <th align="left"><input type="checkbox" name="chkall" id="chkall" onclick="return checkall('selector[]');"> Product</th>  -->
+				  		<th>Product</th> 
+				  		<th>Description</th>
+				  		<!-- <th>Category</th> -->
+				  		<th>Price</th>
+				  		<th>Discount%</th>  
+				  		<th>Discounted Price</th>  
 
- // echo date_format(date_create($_POST['date_pickerfrom']),'Y-m-d');
-// echo $_POST['txtSearch'];
-// $query = "SELECT  *  FROM  `tblcustomer` c,  `tblsummary` s WHERE  c.`CUSTOMERID` = s.`CUSTOMERID` AND  ORDEREDSTATS='Confirmed' AND date(ORDEREDDATE)>='". date_format(date_create($_POST['date_pickerfrom']), "Y-m-d")."' AND date(ORDEREDDATE) <='". date_format(date_create($_POST['date_pickerto']), "Y-m-d")."'";
-// $query="SELECT *,SUM(ORDEREDQTY) as 'QTY'  FROM `tblproduct` P  ,`tblpromopro` PR ,`tblorder` O, `tblsummary` S ,`tblcustomer` C 
-// WHERE P.`PROID`=PR.`PROID` AND PR.`PROID`=O.`PROID` AND O.`ORDEREDNUM`=S.`ORDEREDNUM` AND S.`CUSTOMERID`=C.`CUSTOMERID`  
-// AND CONCAT(`PRODESC`, ' ' ,O.`ORDEREDNUM`, ' ' ,`FNAME`,' ', `LNAME`, ' ',`MNAME`) LIKE '%{$_POST['txtSearch']}%' AND DATE(ORDEREDDATE) >= '". date_format(date_create($_POST['date_pickerfrom']),'Y-m-d')."' 
-// AND DATE(ORDEREDDATE) <= '". date_format(date_create($_POST['date_pickerto']),'Y-m-d')."' GROUP BY `PRODESC`
-// ";
+				  		<th>Quantity</th>  
 
-$query="SELECT *,SUM(ORDEREDQTY) as 'QTY'  FROM `tblproduct` P  ,`tblpromopro` PR ,`tblorder` O, `tblsummary` S ,`tblcustomer` C 
-WHERE P.`PROID`=PR.`PROID` AND PR.`PROID`=O.`PROID` AND O.`ORDEREDNUM`=S.`ORDEREDNUM` AND S.`CUSTOMERID`=C.`CUSTOMERID`  
-AND  DATE(ORDEREDDATE) >= '". date_format(date_create($_POST['date_pickerfrom']),'Y-m-d')."' 
-AND DATE(ORDEREDDATE) <= '". date_format(date_create($_POST['date_pickerto']),'Y-m-d')."' GROUP BY `PRODESC`
-";
+				  		<!-- <th>Action</th>  -->
+				  		 
+				  	</tr>	
+				  </thead> 	
 
-
-// $query = "SELECT  *  FROM  `tblcustomer` c,  `tblsummary` s 
-//            WHERE  c.`CUSTOMERID` = s.`CUSTOMERID` AND  ORDEREDSTATS='Confirmed' 
-//            AND  date(ORDEREDDATE) >= '". date_format(date_create($_POST['date_pickerfrom']), "Y-m-d")."' 
-//            date(ORDEREDDATE) <= '". date_format(date_create($_POST['date_pickerto']), "Y-m-d")."'";
-
-
-			$mydb->setQuery($query);
+			  <tbody>
+				  	<?php 
+				  		$query = "SELECT * FROM `tblpromopro` pr , `tblproduct` p , `tblcategory` c
+           					 WHERE pr.`PROID`=p.`PROID` AND  p.`CATEGID` = c.`CATEGID` ";
+				  		$mydb->setQuery($query);
 				  		$cur = $mydb->loadResultList();
 
-				  		if(!isset($cus)){
-				  			foreach ($cur as $result) {
-			# code...		
-				  				$AMOUNT = $result->PROPRICE * $result->QTY ;
-							echo '<tr>
-									<td>'.date_format(date_create($result->ORDEREDDATE),'M/d/Y h:i:s').'</td>   
-									<td>'.$result->PRODESC.'</td>
-									<td>'.$result->ORIGINALPRICE.'</td>
-									<td>'.$result->PROPRICE.'</td>
-									<td>'.$result->QTY .'</td>
-									<td>'.$AMOUNT.'</td>  
-								 </tr>';
-			
-			$Capital += $result->ORIGINALPRICE;	
-			$markupPrice += $result->PROPRICE;
-			$totQty +=$result->QTY;				 
- 			$totAmount += $AMOUNT;
-								} }else{
-									echo '<tr><td colspan="7" align="center"><h2>Please Enter Then Dates</h2></td></tr>';
-								}
- 
-	}else{
-			echo '<tr><td colspan="7" align="center"><h2>Please Enter Then Dates</h2></td></tr>';
+						foreach ($cur as $result) { 
+				  		echo '<tr>';
+				  		echo '<td width="1%" align="center"><input type="checkbox" name="selector[]" id="selector[]" value="'.$result->PROID. '"/></td>';
+				    echo '<td style="padding:0px;">
+							<a class="PROID" href="" data-target="#productmodal"  data-toggle="modal"  data-id="'.$result->PROID.'"> 
+							<img  title="'.$result->CATEGORIES.'" style="width:100px;height:50px;padding:0;"  src="'. web_root.'admin/products/'.$result->IMAGES . '">
+							</a></td>'; 	
+				  		// echo '<td><a title="edit" href="'.web_root.'admin/products/index.php?view=edit&id='.$result->PROID.'"><i class="fa fa-pencil "></i> ' . $result->PROMODEL.'</a></td>';
+				  		echo '<td><a title="edit" href="'.web_root.'admin/products/index.php?view=edit&id='.$result->PROID.'"><i class="fa fa-pencil "></i>'.$result->CATEGORIES.'</a></td>';
+				  		
+				  		echo '<td>'. $result->PRODESC.'</td>'; 
+				  		echo '<td> &#8369 '.  number_format($result->PROPRICE,2).'</td>';
+				  		echo '<td> &#8369 '.  number_format($result->PRODISCOUNT,0).'</td>';
+				  		echo '<td> &#8369 '.  number_format($result->PRODISPRICE,2).'</td>';
 
-	}
-		 
- 
-?>
-</tbody>
-<tfoot>
-	<tr>
-		<td colspan="2">Total</td>
-		<td><?php echo $Capital; ?></td>
-		<td><?php echo $markupPrice; ?></td>
-		<td><?php echo $totQty; ?></td>
-		<td><?php echo $totAmount; ?></td>
-	</tr>
-</tfoot>
-</table>
- </form>
-	</div>
-	</span>
-	<div class="row">
-		<div class="col-md-12">
-			<div class="col-md-2"> 	
-			<button onclick="tablePrint();" class="btn btn-primary"><i class="fa fa-print"></i> Print Report</button>
- 		</div>
-	  </div>
-	</div>
-</div>
-   
-<script>
-function tablePrint(){  
-    var display_setting="toolbar=no,location=no,directories=no,menubar=no,";  
-    display_setting+="scrollbars=no,width=500, height=500, left=100, top=25";  
-    var content_innerhtml = document.getElementById("printout").innerHTML;  
-    var document_print=window.open("","",display_setting);  
-    document_print.document.open();  
-    document_print.document.write('<body style="font-family:Calibri(body);  font-size:8px;" onLoad="self.print();self.close();" >');  
-    document_print.document.write(content_innerhtml);  
-    document_print.document.write('</body></html>');  
-    document_print.print();  
-    document_print.document.close();  
-    return false;  
-    } 
-	$(document).ready(function() {
-		oTable = jQuery('#list').dataTable({
-		"bJQueryUI": true,
-		"sPaginationType": "full_numbers"
-		} );
-	});	
+				  		echo '<td width="4%">'. $result->PROQTY.'</td>';
+				  		// echo '<td><a href="controller.php?action=delete&id='.$result->PROD.'" class="btn btn-danger">delete</a></td>';
 
-		
-</script>
+				  		
+				  		// if ($result->PROSTATS=='Available'){
+				  		// 	$stats = 'Available';
+				  		// }else{
+				  		// 	$stats = 'NotAvailable';
+				  		// }
+				  	// 	echo
+				  	// 	 '<td align="left">
+							// <a href="'.web_root.'admin/products/controller.php?action=edit&id='.$result->PROID.'&stats='.$stats.'" class="btn btn-primary btn-xs">'.$stats.'</a>
+							// <a href="settings.php?id='.$result->PROID.'" data-toggle="lightbox"  class="btn btn-primary btn-xs">Set Discount</a>
+				  	// 	 </td>';
+				  	} 
+				  	?>
+				  </tbody>
+					
+				 	
+				</table>
+
+				<div class="btn-group">
+				  <!-- <a href="index.php?view=add" class="btn btn-default">New</a> -->
+				  <button type="submit" class="btn btn-default" name="delete"><i class="fa fa-trash fw-fa"></i> Delete Selected</button>
+				</div>
+				</div>
+				</form>
+ 
+ <div class="modal fade" id="productmodal" tabindex="-1">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button class="close" data-dismiss="modal" type=
+                                    "button">ï¿½</button>
+
+                                    <h4 class="modal-title" id="myModalLabel">Image.</h4>
+                                </div>
+
+                                <form action="<?php echo web_root; ?>admin/products/controller.php?action=photos" enctype="multipart/form-data" method=
+                                "post">
+                                    <div class="modal-body">
+                                        <div class="form-group">
+                                            <div class="rows">
+                                                <div class="col-md-12">
+                                                    <div class="rows">
+                                                        <div class="col-md-8">
+
+                                                            <input class="proid" type="hidden" name="proid" id="proid" value="">
+                                                              <input name="MAX_FILE_SIZE" type=
+                                                            "hidden" value="1000000"> <input id=
+                                                            "photo" name="photo" type=
+                                                            "file">
+                                                        </div>
+
+                                                        <div class="col-md-4"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="modal-footer">
+                                        <button class="btn btn-default" data-dismiss="modal" type=
+                                        "button">Close</button> <button class="btn btn-primary"
+                                        name="savephoto" type="submit">Upload Photo</button>
+                                    </div>
+                                </form>
+                            </div><!-- /.modal-content -->
+                        </div><!-- /.modal-dialog -->
+                    </div><!-- /.modal -->
+
+                
